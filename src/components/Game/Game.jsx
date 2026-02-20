@@ -13,6 +13,8 @@ export default function Game(){
   const navigate = useNavigate();
   const { state } = useGame();
   const lang = state.language;
+  const teamBlueName = state.teamNames?.blue || "Blue";
+  const teamRedName = state.teamNames?.red || "Red";
 
   const game = useGameLogic();
 
@@ -53,7 +55,7 @@ export default function Game(){
       <main className={styles.layout}>
         <TeamPanel
           team="blue"
-          title="Blue"
+          title={teamBlueName}
           score={state.teams.blue.score}
           question={state.teams.blue.currentProblem.text}
           input={state.teams.blue.currentInput}
@@ -72,11 +74,12 @@ export default function Game(){
           redScore={state.teams.red.score}
           timerText={game.timerText}
           status={state.statusMessage || t(lang, "statusDefault")}
+          tone={state.statusTone}
         />
 
         <TeamPanel
           team="red"
-          title="Red"
+          title={teamRedName}
           score={state.teams.red.score}
           question={state.teams.red.currentProblem.text}
           input={state.teams.red.currentInput}
@@ -95,6 +98,8 @@ export default function Game(){
         redScore={state.teams.red.score}
         difficulty={state.difficulty}
         lang={lang}
+        blueName={teamBlueName}
+        redName={teamRedName}
         onPlayAgain={() => game.startGame()}
         onBackHome={backHome}
       />

@@ -55,18 +55,18 @@ export function useGameLogic(){
     }catch{}
   }, [clearPending]);
 
-  const setStatus = useCallback((msgKeyOrText) => {
+  const setStatus = useCallback((msgKeyOrText, tone = "neutral") => {
     const msg = (msgKeyOrText && msgKeyOrText.startsWith?.("i18n:"))
       ? t(state.language, msgKeyOrText.slice(5))
       : msgKeyOrText;
 
-    dispatch({ type: "SET_STATUS", payload: msg });
+    dispatch({ type: "SET_STATUS", payload: { message: msg, tone } });
   }, [dispatch, state.language]);
 
   const startGame = useCallback(() => {
     teardown();
     dispatch({ type: "START_GAME" });
-    setStatus(t(state.language, "statusDefault"));
+    setStatus(t(state.language, "statusDefault"), "neutral");
     // start video
     setTimeout(() => {
       try{
@@ -181,18 +181,18 @@ export function useGameLogic(){
     if(pending && pending.team !== team && (now - pending.at) <= SIMULTANEOUS_WINDOW_MS){
       // simultaneous correct: cancel movement
       clearPending();
-      setStatus(t(state.language, "bothCorrect"));
+      setStatus(t(state.language, "bothCorrect"), "neutral");
       return;
     }
 
-    setStatus(t(state.language, "correct"));
+    setStatus(t(state.language, "correct"), "correct");
     schedulePull(team);
   }, [clearPending, dispatch, play, schedulePull, setStatus, state.language]);
 
   const handleWrong = useCallback((team) => {
     play("wrong");
     dispatch({ type: "TEAM_INPUT", payload: { team, input: "0" } });
-    setStatus(t(state.language, "wrong"));
+    setStatus(t(state.language, "wrong"), "wrong");
   }, [dispatch, play, setStatus, state.language]);
 
   const submit = useCallback((team) => {

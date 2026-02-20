@@ -1,30 +1,64 @@
-:root{
-  --bg:#eef3f7;
-  --card:#ffffff;
-  --shadow:0 12px 28px rgba(0,0,0,.12);
-  --shadow2:0 8px 18px rgba(0,0,0,.10);
-  --radius:18px;
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap");
 
-  --blue:#0b77d5;
-  --blue2:#1387f0;
+:root{
+  --bg: linear-gradient(160deg,#f5f7fb 0%,#eef4ff 30%,#f7fbff 60%,#fdf8ff 100%);
+  --card:#ffffff;
+  --card-secondary:rgba(255,255,255,.75);
+  --shadow:0 30px 80px rgba(26,65,109,.15);
+  --shadow2:0 20px 50px rgba(21,33,74,.12);
+  --radius:22px;
+
+  --blue:#0c6bd9;
+  --blue2:#2c90ff;
+  --aqua:#59ffcd;
+  --navy:#0f1b2f;
 
   --red:#e13c35;
   --red2:#ff4c44;
 
-  --text:#0b1b2b;
-  --muted:#4b627a;
+  --text:#0d1c2d;
+  --muted:#44617f;
 
-  --focus: #111827;
+  --focus: rgba(12,107,217,.45);
+  color-scheme: light;
+}
+
+[data-theme="dark"]{
+  --bg: linear-gradient(140deg,#050914 0%,#0c1527 45%,#111b31 100%);
+  --card:#111b2f;
+  --card-secondary:rgba(17,27,47,.72);
+  --shadow:0 30px 80px rgba(0,0,0,.45);
+  --shadow2:0 20px 40px rgba(0,0,0,.4);
+  --radius:22px;
+
+  --blue:#5da4ff;
+  --blue2:#367bff;
+  --aqua:#59ffcd;
+  --navy:#e2edff;
+
+  --red:#ff7b73;
+  --red2:#ff5e54;
+
+  --text:#f1f4ff;
+  --muted:#9bb1d1;
+
+  --focus: rgba(93,164,255,.55);
+  color-scheme: dark;
 }
 
 *{box-sizing:border-box;}
 html,body{height:100%;}
 body{
   margin:0;
-  background:var(--bg);
+  min-height:100vh;
+  background-image:var(--bg);
+  background-attachment:fixed;
   color:var(--text);
-  font-family: system-ui, Segoe UI, Arial, sans-serif;
+  font-family:"Space Grotesk", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background 0.4s ease, color 0.2s ease;
 }
-a{color:inherit}
+a{color:inherit;text-decoration:none;}
 button{font-family:inherit}
-:focus-visible{outline:3px solid rgba(17,24,39,.35); outline-offset: 3px; border-radius: 10px;}
+:focus-visible{outline:3px solid var(--focus); outline-offset: 3px; border-radius: 10px;}

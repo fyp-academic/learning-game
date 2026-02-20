@@ -8,8 +8,14 @@ export default function Arena({
   blueScore,
   redScore,
   timerText,
-  status
+  status,
+  tone = "neutral"
 }){
+  const statusClass =
+    tone === "correct" ? styles.hintCorrect
+    : tone === "wrong" ? styles.hintWrong
+    : "";
+
   return (
     <section className={styles.arenaWrap}>
       <div className={styles.arenaTop}>
@@ -45,7 +51,7 @@ export default function Arena({
         </div>
       </div>
 
-      <div className={styles.hint} aria-live="polite">{status}</div>
+      <div className={`${styles.hint} ${statusClass}`.trim()} aria-live="polite">{status}</div>
     </section>
   );
 }

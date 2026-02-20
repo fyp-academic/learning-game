@@ -12,11 +12,18 @@ function initState(){
   const language = safeGet("tug_lang", "en");
   const subject = safeGet("tug_subject", "math");
   const difficulty = safeGet("tug_diff", "medium");
+  const teamBlue = safeGet("tug_team_blue", "Team Blue");
+  const teamRed = safeGet("tug_team_red", "Team Red");
 
   return {
     language,
     subject,
     difficulty,
+    statusTone: "neutral",
+    teamNames: {
+      blue: teamBlue,
+      red: teamRed
+    },
     gameStatus: "idle", // idle | playing | gameOver
     timer: ROUND_SECONDS,
     pullPosition: 0, // -6..+6
@@ -78,7 +85,7 @@ function reducer(state, action){
     case "SET_TIMER":
       return { ...state, timer: action.payload };
     case "SET_STATUS":
-      return { ...state, statusMessage: action.payload };
+      return { ...state, statusMessage: action.payload.message, statusTone: action.payload.tone ?? "neutral" };
     case "SET_WINNER":
       return { ...state, winner: action.payload, gameStatus: "gameOver" };
     case "TEAM_LOCK": {
@@ -129,6 +136,16 @@ function reducer(state, action){
       const { delta } = action.payload; // -1 blue, +1 red
       const next = Math.max(-6, Math.min(6, state.pullPosition + delta));
       return { ...state, pullPosition: next };
+    }
+    case "SET_TEAM_NAMES": {
+      const { blue, red } = action.payload;
+      return {
+        ...state,
+        teamNames: {
+          blue,
+          red
+        }
+      };
     }
     default:
       return state;
