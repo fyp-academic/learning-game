@@ -1,0 +1,64 @@
+.arenaWrap{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+.arenaTop{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding:12px 14px;
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items:center;
+}
+.miniScore{display:flex; flex-direction:column; gap:4px;}
+.right{align-items:flex-end;}
+.miniLabel{font-size:14px;color:#345;font-weight:900;}
+.miniValue{font-size:28px;font-weight:1000;color:#1579c7;}
+.timer{justify-self:center; font-weight:1000; color:#1579c7;}
+
+.arena{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  height:520px;
+  position:relative;
+  overflow:hidden; /* IMPORTANT: viewport */
+}
+
+.centerLine{
+  position:absolute;
+  top:0; bottom:0;
+  left:50%;
+  width:0;
+  border-left:3px dashed rgba(0,0,0,.35);
+  transform:translateX(-50%);
+  z-index:3;
+  pointer-events:none;
+}
+
+.videoTrack{
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  will-change:transform;
+  transition:transform 220ms cubic-bezier(.22,.61,.36,1);
+  z-index:1;
+}
+
+.video{
+  width:112%;
+  height:112%;
+  object-fit:contain;
+  pointer-events:none;
+  user-select:none;
+}
+
+.hint{
+  text-align:center;
+  color:#456;
+  font-weight:800;
+}

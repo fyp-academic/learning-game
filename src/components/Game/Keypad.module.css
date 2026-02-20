@@ -1,0 +1,32 @@
+.keypad{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:12px;
+  padding: 10px 16px 18px;
+  outline:none;
+}
+.btn{
+  height:78px;
+  border-radius:14px;
+  border:0;
+  background:#f4f7fb;
+  font-size:22px;
+  font-weight:1000;
+  box-shadow: 0 6px 14px rgba(0,0,0,.08);
+  cursor:pointer;
+}
+.btn:active{transform:translateY(1px);}
+.btn:disabled{opacity:.65; cursor:not-allowed;}
+
+.danger{
+  background:linear-gradient(180deg,var(--red2),var(--red));
+  color:white;
+}
+.okBlue{
+  background:linear-gradient(180deg,var(--blue2),var(--blue));
+  color:white;
+}
+.okRed{
+  background:linear-gradient(180deg,var(--blue2),var(--blue));
+  color:white;
+}

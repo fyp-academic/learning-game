@@ -1,0 +1,30 @@
+:root{
+  --bg:#eef3f7;
+  --card:#ffffff;
+  --shadow:0 12px 28px rgba(0,0,0,.12);
+  --shadow2:0 8px 18px rgba(0,0,0,.10);
+  --radius:18px;
+
+  --blue:#0b77d5;
+  --blue2:#1387f0;
+
+  --red:#e13c35;
+  --red2:#ff4c44;
+
+  --text:#0b1b2b;
+  --muted:#4b627a;
+
+  --focus: #111827;
+}
+
+*{box-sizing:border-box;}
+html,body{height:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: system-ui, Segoe UI, Arial, sans-serif;
+}
+a{color:inherit}
+button{font-family:inherit}
+:focus-visible{outline:3px solid rgba(17,24,39,.35); outline-offset: 3px; border-radius: 10px;}
