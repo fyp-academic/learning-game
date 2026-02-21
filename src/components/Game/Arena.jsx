@@ -7,6 +7,7 @@ export default function Arena({
   videoRef,
   blueScore,
   redScore,
+  videoSrc,
   blueLabel = "Blue",
   redLabel = "Red",
   timerText,
@@ -65,7 +66,7 @@ export default function Arena({
           <video
             ref={videoRef}
             className={styles.video}
-            src="/assets/video/tug-loop.mp4"
+            src={videoSrc}
             autoPlay
             loop
             muted

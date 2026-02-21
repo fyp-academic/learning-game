@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css";
 import TeamPanel from "./TeamPanel.jsx";
@@ -8,6 +8,10 @@ import { useGame } from "../../context/GameContext.jsx";
 import { useGameLogic } from "../../hooks/useGameLogic.js";
 import { usePullAnimation } from "../../hooks/usePullAnimation.js";
 import { t } from "../../utils/i18n.js";
+import bgmTrack from "../../assets/audio/background-music.mpeg";
+import competitionVideo from "../../assets/videos/competition.mp4";
+import blueWinVideo from "../../assets/videos/blue-win.mp4";
+import redWinVideo from "../../assets/videos/red-win.mp4";
 
 export default function Game(){
   const navigate = useNavigate();
@@ -17,6 +21,15 @@ export default function Game(){
   const teamRedName = state.teamNames?.red || "Red";
 
   const game = useGameLogic();
+  const bgmRef = useRef(null);
+
+  const arenaVideoSrc = useMemo(() => {
+    if(state.gameStatus === "gameOver"){
+      if(state.winner === "BLUE") return blueWinVideo;
+      if(state.winner === "RED") return redWinVideo;
+    }
+    return competitionVideo;
+  }, [state.gameStatus, state.winner]);
 
   useEffect(() => {
     // When entering /game from landing page, start immediately.
@@ -33,6 +46,41 @@ export default function Game(){
     pullPosition: state.pullPosition
   });
 
+  useEffect(() => {
+    const audio = bgmRef.current;
+    if(!audio) return;
+
+    audio.volume = 0.35;
+    audio.loop = true;
+
+    function unlockAudio(){
+      audio.play().catch(() => {});
+    }
+
+    window.addEventListener("pointerdown", unlockAudio, { once: true });
+    return () => window.removeEventListener("pointerdown", unlockAudio);
+  }, []);
+
+  useEffect(() => {
+    const audio = bgmRef.current;
+    if(!audio) return;
+
+    if(state.gameStatus === "playing"){
+      audio.play().catch(() => {});
+    }else{
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }, [state.gameStatus]);
+
+  useEffect(() => () => {
+    const audio = bgmRef.current;
+    if(audio){
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }, []);
+
   function backHome(){
     game.teardown();
     navigate("/", { replace: true });
@@ -40,6 +88,7 @@ export default function Game(){
 
   return (
     <div className={styles.page}>
+      <audio ref={bgmRef} src={bgmTrack} preload="auto" hidden />
       <header className={styles.topbar}>
         <button className={styles.homeBtn} onClick={backHome} aria-label={t(lang, "backHome")}>
           <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
@@ -72,6 +121,7 @@ export default function Game(){
           arenaRef={game.arenaRef}
           trackRef={game.trackRef}
           videoRef={game.videoRef}
+          videoSrc={arenaVideoSrc}
           blueScore={state.teams.blue.score}
           redScore={state.teams.red.score}
           timerText={game.timerText}
