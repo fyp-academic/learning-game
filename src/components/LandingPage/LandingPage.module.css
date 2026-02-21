@@ -292,6 +292,8 @@
   box-shadow:0 40px 100px rgba(5,9,20,.45);
   padding:32px;
   position:relative;
+  max-height:90vh;
+  overflow-y:auto;
 }
 .modalHeader{display:flex; justify-content:space-between; align-items:flex-start; gap:18px;}
 .modalKicker{margin:0; letter-spacing:.2em; font-size:12px; font-weight:600; color:var(--muted);}
@@ -502,6 +504,17 @@
   .hero{padding:26px;}
   .featureCard{flex-direction:column;}
   .modalGrid{grid-template-columns:1fr;}
+}
+
+@media (max-width: 600px){
+  .modalCard{padding:22px; border-radius:26px;}
+  .modalSubjects{
+    grid-template-columns:1fr;
+    max-height:340px;
+    overflow-y:auto;
+    padding-right:4px;
+  }
+  .subjectCard{gap:10px;}
 }
 
 @media (max-width: 520px){

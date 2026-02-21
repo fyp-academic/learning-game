@@ -192,6 +192,7 @@ export function useGameLogic(){
   const handleWrong = useCallback((team) => {
     play("wrong");
     dispatch({ type: "TEAM_INPUT", payload: { team, input: "0" } });
+    dispatch({ type: "TEAM_NEW_PROBLEM", payload: { team } });
     setStatus(t(state.language, "wrong"), "wrong");
   }, [dispatch, play, setStatus, state.language]);
 
