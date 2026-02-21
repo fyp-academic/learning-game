@@ -5,8 +5,38 @@ import { useGame } from "../../context/GameContext.jsx";
 import { t } from "../../utils/i18n.js";
 
 const SUBJECTS = [
-  { id: "math", key: "mathematics", ready: true },
-  { id: "science", key: "science", ready: false }
+  {
+    id: "math",
+    key: "mathematics",
+    ready: true,
+    descKey: "mathDesc",
+    metaKey: "mathCountLabel",
+    tags: ["adaptiveTag"]
+  },
+  {
+    id: "chemistry",
+    key: "chemistry",
+    ready: true,
+    descKey: "chemistryDesc",
+    questionCount: 20,
+    tags: ["mcqTag"]
+  },
+  {
+    id: "biology",
+    key: "biology",
+    ready: true,
+    descKey: "biologyDesc",
+    questionCount: 20,
+    tags: ["mcqTag"]
+  },
+  {
+    id: "physics",
+    key: "physics",
+    ready: true,
+    descKey: "physicsDesc",
+    questionCount: 20,
+    tags: ["mcqTag"]
+  }
 ];
 
 const LANGS = [
@@ -414,12 +444,33 @@ export default function LandingPage(){
                     disabled={!s.ready}
                     aria-disabled={!s.ready}
                   >
-                    <div className={styles.subjectTitle}>{t(lang, s.key)}</div>
-                    {!s.ready ? (
-                      <div className={styles.badgeSoon}>{t(lang, "comingSoon")}</div>
-                    ) : (
-                      <div className={styles.badgeReady}>{t(lang, "ready")}</div>
-                    )}
+                    <div className={styles.subjectHead}>
+                      <div>
+                        <div className={styles.subjectTitle}>{t(lang, s.key)}</div>
+                        {s.descKey ? <p className={styles.subjectDesc}>{t(lang, s.descKey)}</p> : null}
+                      </div>
+                      {!s.ready ? (
+                        <div className={styles.badgeSoon}>{t(lang, "comingSoon")}</div>
+                      ) : (
+                        <div className={styles.badgeReady}>{t(lang, "ready")}</div>
+                      )}
+                    </div>
+
+                    <div className={styles.subjectMetaRow}>
+                      {s.questionCount ? (
+                        <span className={styles.subjectMeta}>
+                          {s.questionCount} {t(lang, "subjectQuestionSuffix")}
+                        </span>
+                      ) : s.metaKey ? (
+                        <span className={styles.subjectMeta}>{t(lang, s.metaKey)}</span>
+                      ) : null}
+
+                      <div className={styles.subjectTags}>
+                        {(s.tags || []).map(tagKey => (
+                          <span key={tagKey} className={styles.subjectTag}>{t(lang, tagKey)}</span>
+                        ))}
+                      </div>
+                    </div>
                   </button>
                 ))}
               </div>
