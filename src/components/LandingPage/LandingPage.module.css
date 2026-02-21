@@ -34,8 +34,11 @@
   color:var(--navy);
   font-size:26px;
   font-weight:800;
+  overflow-wrap:break-word;
+  word-break:break-word;
+  padding:0 4px;
 }
-.typingText{display:inline-block; white-space:nowrap;}
+.typingText{display:inline-block; white-space:nowrap; max-width:100%; overflow:hidden;}
 .typingCursor{
   display:inline-block;
   width:3px;
@@ -46,7 +49,7 @@
 }
 
 @keyframes blink{to{visibility:hidden;}}
-.headerActions{justify-self:end; display:flex; align-items:center; gap:12px;}
+.headerActions{justify-self:end; display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:flex-end;}
 .langPill{
   background:rgba(255,255,255,.9);
   padding:6px;
