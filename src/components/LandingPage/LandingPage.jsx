@@ -98,8 +98,6 @@ export default function LandingPage(){
   });
   const [formErrorKey, setFormErrorKey] = useState("");
   const [countdown, setCountdown] = useState(null);
-  const [typedTitle, setTypedTitle] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
   const titleTarget = t(lang, "welcomeTitle");
 
   useEffect(() => {
@@ -108,34 +106,6 @@ export default function LandingPage(){
       localStorage.setItem("tug_theme", theme);
     } catch {}
   }, [theme]);
-
-  useEffect(() => {
-    setTypedTitle("");
-    setIsDeleting(false);
-  }, [titleTarget]);
-
-  useEffect(() => {
-    let timeout;
-
-    if(!isDeleting && typedTitle === titleTarget){
-      timeout = setTimeout(() => setIsDeleting(true), 1200);
-    } else if(isDeleting && typedTitle === ""){
-      timeout = setTimeout(() => setIsDeleting(false), 400);
-    } else {
-      timeout = setTimeout(() => {
-        setTypedTitle(prev => {
-          if(isDeleting){
-            const nextLength = Math.max(prev.length - 1, 0);
-            return titleTarget.slice(0, nextLength);
-          }
-          const nextLength = Math.min(prev.length + 1, titleTarget.length);
-          return titleTarget.slice(0, nextLength);
-        });
-      }, isDeleting ? 35 : 80);
-    }
-
-    return () => clearTimeout(timeout);
-  }, [typedTitle, isDeleting, titleTarget]);
 
   useEffect(() => {
     if(countdown === null) return;
@@ -245,10 +215,7 @@ export default function LandingPage(){
           <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
         </div>
 
-        <h1 className={styles.title} aria-label={titleTarget}>
-          <span className={styles.typingText}>{typedTitle || titleTarget}</span>
-          <span className={styles.typingCursor} aria-hidden="true" />
-        </h1>
+        <h1 className={styles.title}>{titleTarget}</h1>
 
         <div className={styles.headerActions}>
           <div className={styles.langPill} role="group" aria-label={t(lang, "language")}>
