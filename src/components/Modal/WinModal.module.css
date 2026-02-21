@@ -21,6 +21,24 @@
   overflow:hidden;
   animation: pop .18s ease-out;
 }
+.confetti{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+}
+.confettiPiece{
+  position:absolute;
+  top:-20px;
+  border-radius:4px;
+  opacity:.9;
+  animation: confettiFall linear forwards;
+}
+@keyframes confettiFall{
+  0%{transform:translate3d(0,-10px,0) rotate(0deg); opacity:1;}
+  50%{transform:translate3d(var(--drift, 0px), 50vh, 0) rotate(180deg); opacity:.9;}
+  100%{transform:translate3d(calc(var(--drift, 0px) * 1.5), 105vh, 0) rotate(360deg); opacity:0;}
+}
 @keyframes pop{from{transform:translateY(8px); opacity:.75} to{transform:translateY(0); opacity:1}}
 
 .header{
