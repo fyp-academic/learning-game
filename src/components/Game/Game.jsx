@@ -21,6 +21,7 @@ export default function Game(){
 
   const game = useGameLogic();
   const bgmRef = useRef(null);
+  const audioUnlockedRef = useRef(false);
 
   const arenaVideoSrc = useMemo(() => {
     if(state.gameStatus === "gameOver"){
@@ -52,12 +53,25 @@ export default function Game(){
     audio.volume = 0.35;
     audio.loop = true;
 
-    function unlockAudio(){
-      audio.play().catch(() => {});
+    function tryUnlock(){
+      audio.play()
+        .then(() => {
+          audioUnlockedRef.current = true;
+          window.removeEventListener("pointerdown", tryUnlock);
+          window.removeEventListener("keydown", tryUnlock);
+        })
+        .catch(() => {});
     }
 
-    window.addEventListener("pointerdown", unlockAudio, { once: true });
-    return () => window.removeEventListener("pointerdown", unlockAudio);
+    if(!audioUnlockedRef.current){
+      window.addEventListener("pointerdown", tryUnlock);
+      window.addEventListener("keydown", tryUnlock);
+    }
+
+    return () => {
+      window.removeEventListener("pointerdown", tryUnlock);
+      window.removeEventListener("keydown", tryUnlock);
+    };
   }, []);
 
   useEffect(() => {
@@ -65,7 +79,9 @@ export default function Game(){
     if(!audio) return;
 
     if(state.gameStatus === "playing"){
-      audio.play().catch(() => {});
+      audio.play().then(() => {
+        audioUnlockedRef.current = true;
+      }).catch(() => {});
     }else{
       audio.pause();
       audio.currentTime = 0;
