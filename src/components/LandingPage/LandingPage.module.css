@@ -133,28 +133,7 @@
   background:var(--aqua);
 }
 .kicker{color:var(--muted); font-weight:700; margin-top:14px; letter-spacing:.12em; text-transform:uppercase; font-size:14px;}
-.heroTitle{
-  font-size:clamp(32px, 6vw, 48px);
-  font-weight:800;
-  color:var(--navy);
-  margin-top:10px;
-  line-height:1.1;
-}
-.heroTyping{
-  display:inline-block;
-  white-space:nowrap;
-  max-width:100%;
-  overflow:hidden;
-}
-.heroCursor{
-  display:inline-block;
-  width:3px;
-  height:1.2em;
-  background:var(--navy);
-  margin-left:8px;
-  animation: heroBlink 1s steps(2, start) infinite;
-}
-@keyframes heroBlink{to{visibility:hidden;}}
+.heroTitle{font-size:48px; font-weight:800; color:var(--navy); margin-top:10px; line-height:1.1;}
 .heroSub{color:#324865; margin-top:12px; line-height:1.4; font-weight:500; max-width:520px;}
 .heroChips{display:flex; flex-wrap:wrap; gap:10px; margin-top:22px;}
 .heroChip{
@@ -488,6 +467,4 @@
   .metricsStrip{grid-template-columns:1fr;}
   .footerShell{padding:24px;}
   .modalCard{padding:20px;}
-  .heroTitle{text-align:center;}
-  .heroTyping{white-space:normal; word-break:break-word;}
 }
