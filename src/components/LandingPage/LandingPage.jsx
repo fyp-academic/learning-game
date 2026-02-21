@@ -99,6 +99,9 @@ export default function LandingPage(){
   const [formErrorKey, setFormErrorKey] = useState("");
   const [countdown, setCountdown] = useState(null);
   const titleTarget = t(lang, "welcomeTitle");
+  const heroTitleTarget = t(lang, "readyCompetition");
+  const [typedHero, setTypedHero] = useState("");
+  const [isHeroDeleting, setIsHeroDeleting] = useState(false);
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -106,6 +109,34 @@ export default function LandingPage(){
       localStorage.setItem("tug_theme", theme);
     } catch {}
   }, [theme]);
+
+  useEffect(() => {
+    setTypedHero("");
+    setIsHeroDeleting(false);
+  }, [heroTitleTarget]);
+
+  useEffect(() => {
+    let timeout;
+
+    if(!isHeroDeleting && typedHero === heroTitleTarget){
+      timeout = setTimeout(() => setIsHeroDeleting(true), 1400);
+    } else if(isHeroDeleting && typedHero === ""){
+      timeout = setTimeout(() => setIsHeroDeleting(false), 500);
+    } else {
+      timeout = setTimeout(() => {
+        setTypedHero(prev => {
+          if(isHeroDeleting){
+            const nextLength = Math.max(prev.length - 1, 0);
+            return heroTitleTarget.slice(0, nextLength);
+          }
+          const nextLength = Math.min(prev.length + 1, heroTitleTarget.length);
+          return heroTitleTarget.slice(0, nextLength);
+        });
+      }, isHeroDeleting ? 45 : 85);
+    }
+
+    return () => clearTimeout(timeout);
+  }, [heroTitleTarget, isHeroDeleting, typedHero]);
 
   useEffect(() => {
     if(countdown === null) return;
@@ -257,7 +288,10 @@ export default function LandingPage(){
               <span>{t(lang, "heroBadgeSecondary")}</span>
             </div>
             <div className={styles.kicker}>{t(lang, "chooseMode")}</div>
-            <div className={styles.heroTitle}>{t(lang, "readyCompetition")}</div>
+            <div className={styles.heroTitle} aria-label={heroTitleTarget}>
+              <span className={styles.heroTyping}>{typedHero || heroTitleTarget}</span>
+              <span className={styles.heroCursor} aria-hidden="true" />
+            </div>
             <div className={styles.heroSub}>{t(lang, "modeDesc")}</div>
 
             <div className={styles.heroChips}>
