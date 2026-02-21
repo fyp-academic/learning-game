@@ -211,11 +211,13 @@ export default function LandingPage(){
   return (
     <div className={styles.page}>
       <header className={styles.topbar}>
-        <div className={styles.homeBtn} aria-label={t(lang, "home")}>
-          <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
-        </div>
+        <div className={styles.topbarIntro}>
+          <div className={styles.homeBtn} aria-label={t(lang, "home")}>
+            <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
+          </div>
 
-        <h1 className={styles.title}>{titleTarget}</h1>
+          <h1 className={styles.title}>{titleTarget}</h1>
+        </div>
 
         <div className={styles.headerActions}>
           <div className={styles.langPill} role="group" aria-label={t(lang, "language")}>
