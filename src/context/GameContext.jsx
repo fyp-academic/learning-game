@@ -3,6 +3,11 @@ import { ROUND_SECONDS } from "../utils/constants.js";
 import { generateProblem } from "../utils/mathProblems.js";
 
 const GameContext = createContext(null);
+const AVAILABLE_SUBJECTS = ["math", "chemistry", "biology", "physics"];
+
+function normalizeSubject(value){
+  return AVAILABLE_SUBJECTS.includes(value) ? value : "math";
+}
 
 function safeGet(key, fallback){
   try { return localStorage.getItem(key) || fallback; } catch { return fallback; }
@@ -10,7 +15,7 @@ function safeGet(key, fallback){
 
 function initState(){
   const language = safeGet("tug_lang", "en");
-  const subject = safeGet("tug_subject", "math");
+  const subject = normalizeSubject(safeGet("tug_subject", "math"));
   const difficulty = safeGet("tug_diff", "medium");
   const teamBlue = safeGet("tug_team_blue", "Team Blue");
   const teamRed = safeGet("tug_team_red", "Team Red");
@@ -33,13 +38,13 @@ function initState(){
       blue: {
         score: 0,
         currentInput: "0",
-        currentProblem: generateProblem(difficulty),
+        currentProblem: generateProblem(subject, difficulty),
         isLocked: false
       },
       red: {
         score: 0,
         currentInput: "0",
-        currentProblem: generateProblem(difficulty),
+        currentProblem: generateProblem(subject, difficulty),
         isLocked: false
       }
     }
@@ -50,15 +55,27 @@ function reducer(state, action){
   switch(action.type){
     case "SET_SETTINGS": {
       const { language, subject, difficulty } = action.payload;
+      const nextSubject = normalizeSubject(subject ?? state.subject);
       return {
         ...state,
         language,
-        subject,
-        difficulty
+        subject: nextSubject,
+        difficulty,
+        teams: {
+          blue: {
+            ...state.teams.blue,
+            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty)
+          },
+          red: {
+            ...state.teams.red,
+            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty)
+          }
+        }
       };
     }
     case "START_GAME": {
       const diff = state.difficulty;
+      const subj = state.subject;
       return {
         ...state,
         gameStatus: "playing",
@@ -70,13 +87,13 @@ function reducer(state, action){
           blue: {
             score: 0,
             currentInput: "0",
-            currentProblem: generateProblem(diff),
+            currentProblem: generateProblem(subj, diff),
             isLocked: false
           },
           red: {
             score: 0,
             currentInput: "0",
-            currentProblem: generateProblem(diff),
+            currentProblem: generateProblem(subj, diff),
             isLocked: false
           }
         }
@@ -126,7 +143,7 @@ function reducer(state, action){
           ...state.teams,
           [team]: {
             ...state.teams[team],
-            currentProblem: generateProblem(state.difficulty),
+            currentProblem: generateProblem(state.subject, state.difficulty),
             currentInput: "0"
           }
         }

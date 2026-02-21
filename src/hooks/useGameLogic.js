@@ -195,22 +195,39 @@ export function useGameLogic(){
     setStatus(t(state.language, "wrong"), "wrong");
   }, [dispatch, play, setStatus, state.language]);
 
-  const submit = useCallback((team) => {
+  const submit = useCallback((team, choice = null) => {
     if(state.gameStatus !== "playing") return;
     const teamState = state.teams[team];
     if(teamState.isLocked) return;
 
     lockTeam(team);
 
-    const val = parseInt(teamState.currentInput, 10);
-    const correct = teamState.currentProblem?.answer;
+    const problem = teamState.currentProblem;
+    const correct = problem?.answer;
 
-    if(Number.isNaN(val)){
-      handleWrong(team);
-      return;
+    let playerAnswer;
+
+    if(problem?.type === "mcq"){
+      if(typeof choice === "number"){
+        playerAnswer = choice;
+      }else{
+        const val = parseInt(teamState.currentInput, 10);
+        if(Number.isNaN(val)){
+          handleWrong(team);
+          return;
+        }
+        playerAnswer = val;
+      }
+    }else{
+      const val = parseInt(teamState.currentInput, 10);
+      if(Number.isNaN(val)){
+        handleWrong(team);
+        return;
+      }
+      playerAnswer = val;
     }
 
-    if(val === correct){
+    if(playerAnswer === correct){
       handleCorrect(team);
     }else{
       handleWrong(team);

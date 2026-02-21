@@ -1,0 +1,22 @@
+export const BIOLOGY_ANSWERS = {
+  bio_easy_1: 1,
+  bio_easy_2: 3,
+  bio_easy_3: 2,
+  bio_easy_4: 3,
+  bio_easy_5: 2,
+  bio_easy_6: 2,
+  bio_easy_7: 3,
+  bio_easy_8: 3,
+  bio_med_1: 4,
+  bio_med_2: 2,
+  bio_med_3: 1,
+  bio_med_4: 3,
+  bio_med_5: 1,
+  bio_med_6: 2,
+  bio_hard_1: 2,
+  bio_hard_2: 1,
+  bio_hard_3: 3,
+  bio_hard_4: 3,
+  bio_hard_5: 1,
+  bio_hard_6: 1
+};

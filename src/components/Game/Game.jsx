@@ -57,13 +57,15 @@ export default function Game(){
           team="blue"
           title={teamBlueName}
           score={state.teams.blue.score}
-          question={state.teams.blue.currentProblem.text}
+          problem={state.teams.blue.currentProblem}
           input={state.teams.blue.currentInput}
           disabled={state.gameStatus !== "playing"}
           locked={state.teams.blue.isLocked}
+          choiceHint={t(lang, "subjectChoiceHint")}
           onDigit={(d) => game.pushDigit("blue", d)}
           onClear={() => game.clearInput("blue")}
           onSubmit={() => game.submit("blue")}
+          onOptionSelect={(choice) => game.submit("blue", choice)}
         />
 
         <Arena
@@ -81,13 +83,15 @@ export default function Game(){
           team="red"
           title={teamRedName}
           score={state.teams.red.score}
-          question={state.teams.red.currentProblem.text}
+          problem={state.teams.red.currentProblem}
           input={state.teams.red.currentInput}
           disabled={state.gameStatus !== "playing"}
           locked={state.teams.red.isLocked}
+          choiceHint={t(lang, "subjectChoiceHint")}
           onDigit={(d) => game.pushDigit("red", d)}
           onClear={() => game.clearInput("red")}
           onSubmit={() => game.submit("red")}
+          onOptionSelect={(choice) => game.submit("red", choice)}
         />
       </main>
 

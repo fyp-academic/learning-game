@@ -1,3 +1,5 @@
+import { getScienceQuestion, isScienceSubject } from "./scienceQuestions.js";
+
 function rand(min, max){
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -6,7 +8,16 @@ function pick(arr){
   return arr[rand(0, arr.length - 1)];
 }
 
-export function generateProblem(difficulty){
+function generateScienceProblem(subject, difficulty){
+  return getScienceQuestion(subject, difficulty);
+}
+
+export function generateProblem(subject = "math", difficulty){
+  if(subject && subject !== "math" && isScienceSubject(subject)){
+    const scienceProblem = generateScienceProblem(subject, difficulty);
+    if(scienceProblem) return scienceProblem;
+  }
+
   const diff = difficulty || "medium";
 
   // ranges by difficulty
@@ -50,6 +61,8 @@ export function generateProblem(difficulty){
   }
 
   return {
+    type: "math",
+    subject: "math",
     text: `${a} ${op} ${b} = ?`,
     answer: ans
   };

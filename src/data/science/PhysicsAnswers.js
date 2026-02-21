@@ -1,0 +1,22 @@
+export const PHYSICS_ANSWERS = {
+  phys_easy_1: 1,
+  phys_easy_2: 3,
+  phys_easy_3: 2,
+  phys_easy_4: 4,
+  phys_easy_5: 2,
+  phys_easy_6: 2,
+  phys_easy_7: 3,
+  phys_easy_8: 3,
+  phys_med_1: 3,
+  phys_med_2: 3,
+  phys_med_3: 2,
+  phys_med_4: 2,
+  phys_med_5: 2,
+  phys_med_6: 3,
+  phys_hard_1: 2,
+  phys_hard_2: 3,
+  phys_hard_3: 3,
+  phys_hard_4: 2,
+  phys_hard_5: 3,
+  phys_hard_6: 2
+};

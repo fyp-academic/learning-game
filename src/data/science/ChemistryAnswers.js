@@ -1,0 +1,22 @@
+export const CHEMISTRY_ANSWERS = {
+  chem_easy_1: 1,
+  chem_easy_2: 3,
+  chem_easy_3: 3,
+  chem_easy_4: 1,
+  chem_easy_5: 3,
+  chem_easy_6: 1,
+  chem_easy_7: 2,
+  chem_easy_8: 2,
+  chem_med_1: 3,
+  chem_med_2: 2,
+  chem_med_3: 2,
+  chem_med_4: 2,
+  chem_med_5: 1,
+  chem_med_6: 2,
+  chem_hard_1: 3,
+  chem_hard_2: 2,
+  chem_hard_3: 2,
+  chem_hard_4: 3,
+  chem_hard_5: 2,
+  chem_hard_6: 2
+};
