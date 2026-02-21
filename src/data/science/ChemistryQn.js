@@ -39,6 +39,66 @@ export const CHEMISTRY_QUESTIONS = {
       id: "chem_easy_8",
       prompt: "What does pH tell us about a solution?",
       options: ["Temperature", "Acidity or basicity", "Color", "Density"]
+    },
+    {
+      id: "chem_easy_9",
+      prompt: "Which state of matter spreads out to fill any container?",
+      options: ["Solid", "Liquid", "Gas", "Crystal"]
+    },
+    {
+      id: "chem_easy_10",
+      prompt: "What protective item covers your hands during experiments?",
+      options: ["Goggles", "Lab coat", "Gloves", "Mask"]
+    },
+    {
+      id: "chem_easy_11",
+      prompt: "When sugar disappears inside hot tea we say it has…",
+      options: ["Melted", "Evaporated", "Dissolved", "Frozen"]
+    },
+    {
+      id: "chem_easy_12",
+      prompt: "Which equipment produces a flame for heating samples?",
+      options: ["Thermometer", "Bunsen burner", "Balance", "Measuring cylinder"]
+    },
+    {
+      id: "chem_easy_13",
+      prompt: "Which color on the universal indicator shows a neutral solution?",
+      options: ["Red", "Blue", "Green", "Orange"]
+    },
+    {
+      id: "chem_easy_14",
+      prompt: "Melting ice into water is an example of a…",
+      options: ["Chemical change", "Physical change", "Nuclear change", "Combustion"]
+    },
+    {
+      id: "chem_easy_15",
+      prompt: "Which gas is necessary for burning to take place?",
+      options: ["Nitrogen", "Oxygen", "Carbon dioxide", "Neon"]
+    },
+    {
+      id: "chem_easy_16",
+      prompt: "Which change of state happens when water vapor becomes liquid?",
+      options: ["Sublimation", "Condensation", "Melting", "Freezing"]
+    },
+    {
+      id: "chem_easy_17",
+      prompt: "A mixture where particles eventually settle, like oil and water, is a…",
+      options: ["Solution", "Suspension", "Colloid", "Alloy"]
+    },
+    {
+      id: "chem_easy_18",
+      prompt: "When two liquids do not mix and form layers they are called…",
+      options: ["Miscible", "Immiscible", "Reactive", "Metallic"]
+    },
+    {
+      id: "chem_easy_19",
+      prompt: "Which metal is most likely to rust in moist air?",
+      options: ["Copper", "Aluminum", "Iron", "Gold"]
+    },
+    {
+      id: "chem_easy_20",
+      prompt: "Which heating method is safest for warming small samples gently?",
+      options: ["Beaker directly on flame", "Pointing a test tube at someone", "Using a water bath", "Plastic cup on fire"]
     }
   ],
   medium: [
@@ -71,6 +131,66 @@ export const CHEMISTRY_QUESTIONS = {
       id: "chem_med_6",
       prompt: "What do we call a mixture where substances are evenly spread?",
       options: ["Suspension", "Solution", "Colloid", "Foam"]
+    },
+    {
+      id: "chem_med_7",
+      prompt: "What is a vertical column in the periodic table called?",
+      options: ["Period", "Group", "Family", "Series"]
+    },
+    {
+      id: "chem_med_8",
+      prompt: "Which method separates different inks using water on paper?",
+      options: ["Filtration", "Chromatography", "Crystallization", "Evaporation"]
+    },
+    {
+      id: "chem_med_9",
+      prompt: "Density is calculated by dividing mass by…",
+      options: ["Temperature", "Volume", "Length", "Pressure"]
+    },
+    {
+      id: "chem_med_10",
+      prompt: "Which step removes sand from salty water before evaporation?",
+      options: ["Sieving", "Filtration", "Evaporation", "Freezing"]
+    },
+    {
+      id: "chem_med_11",
+      prompt: "Which gas makes a 'pop' sound with a burning splint?",
+      options: ["Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"]
+    },
+    {
+      id: "chem_med_12",
+      prompt: "A mixture that scatters light and has medium particles is a…",
+      options: ["Solution", "Colloid", "Foam", "Alloy"]
+    },
+    {
+      id: "chem_med_13",
+      prompt: "Particles arranged in a repeating pattern form a…",
+      options: ["Solution", "Crystal", "Foam", "Mist"]
+    },
+    {
+      id: "chem_med_14",
+      prompt: "Which method separates insoluble solids from liquids using rapid spinning?",
+      options: ["Sieving", "Decanting", "Centrifugation", "Distillation"]
+    },
+    {
+      id: "chem_med_15",
+      prompt: "What is the chemical formula for table salt?",
+      options: ["NaCl", "KCl", "HCl", "NaOH"]
+    },
+    {
+      id: "chem_med_16",
+      prompt: "Which gas turns limewater milky?",
+      options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"]
+    },
+    {
+      id: "chem_med_17",
+      prompt: "Which instrument is commonly used to measure mass in the lab?",
+      options: ["Triple-beam balance", "Thermometer", "Barometer", "Calorimeter"]
+    },
+    {
+      id: "chem_med_18",
+      prompt: "What do we call the solid that forms when two solutions react?",
+      options: ["Solvent", "Precipitate", "Solute", "Vapor"]
     }
   ],
   hard: [
@@ -103,6 +223,66 @@ export const CHEMISTRY_QUESTIONS = {
       id: "chem_hard_6",
       prompt: "Which flame color usually shows sodium in a flame test?",
       options: ["Green", "Yellow", "Purple", "Blue"]
+    },
+    {
+      id: "chem_hard_7",
+      prompt: "Which scientist described atoms as tiny indivisible spheres?",
+      options: ["Isaac Newton", "John Dalton", "Niels Bohr", "Albert Einstein"]
+    },
+    {
+      id: "chem_hard_8",
+      prompt: "What term describes a solid changing directly into gas?",
+      options: ["Condensation", "Sublimation", "Deposition", "Ionization"]
+    },
+    {
+      id: "chem_hard_9",
+      prompt: "Which acid is commonly used inside car batteries?",
+      options: ["Citric acid", "Sulfuric acid", "Acetic acid", "Nitric acid"]
+    },
+    {
+      id: "chem_hard_10",
+      prompt: "Avogadro's number is approximately…",
+      options: ["6.02 × 10^23", "3.14", "9.81", "1.60 × 10^-19"]
+    },
+    {
+      id: "chem_hard_11",
+      prompt: "Benedict's solution is used to test for…",
+      options: ["Starch", "Proteins", "Reducing sugars", "Fats"]
+    },
+    {
+      id: "chem_hard_12",
+      prompt: "Isotopes have the same number of protons but different numbers of…",
+      options: ["Electrons", "Neutrons", "Nuclei", "Charges"]
+    },
+    {
+      id: "chem_hard_13",
+      prompt: "Which subatomic particles are found in the nucleus of an atom?",
+      options: ["Electrons only", "Protons and neutrons", "Electrons and neutrons", "Protons only"]
+    },
+    {
+      id: "chem_hard_14",
+      prompt: "Which gas is released when an acid reacts with a metal carbonate?",
+      options: ["Hydrogen", "Oxygen", "Carbon dioxide", "Nitrogen"]
+    },
+    {
+      id: "chem_hard_15",
+      prompt: "Which principle states that mass is conserved during chemical reactions?",
+      options: ["Archimedes' principle", "Conservation of mass", "Bernoulli's principle", "Boyle's law"]
+    },
+    {
+      id: "chem_hard_16",
+      prompt: "What is the pH of a neutral solution at room temperature?",
+      options: ["0", "3", "7", "14"]
+    },
+    {
+      id: "chem_hard_17",
+      prompt: "Alkali metals belong to which block of the periodic table?",
+      options: ["s-block", "p-block", "d-block", "f-block"]
+    },
+    {
+      id: "chem_hard_18",
+      prompt: "Which technique compares Rf values to identify substances?",
+      options: ["Chromatography", "Filtration", "Distillation", "Electrolysis"]
     }
   ]
 };
