@@ -20,13 +20,6 @@ export default function WinModal({
     return () => window.removeEventListener("keydown", onEsc);
   }, [open, onBackHome]);
 
-  if(!open) return null;
-
-  const winnerText =
-    winner === "BLUE" ? "BLUE"
-    : winner === "RED" ? "RED"
-    : t(lang, "draw");
-
   const confettiPieces = useMemo(() => {
     const palette = ["#ff577f", "#ffd33d", "#6ef2a6", "#3ec5ff", "#fcb045", "#9c6bff"];
     return Array.from({ length: 48 }, (_, index) => ({
@@ -39,6 +32,13 @@ export default function WinModal({
       drift: Math.random() * 60 - 30
     }));
   }, [winner, open]);
+
+  if(!open) return null;
+
+  const winnerText =
+    winner === "BLUE" ? "BLUE"
+    : winner === "RED" ? "RED"
+    : t(lang, "draw");
 
   return (
     <div className={styles.overlay} role="dialog" aria-modal="true" aria-label="Win modal">
