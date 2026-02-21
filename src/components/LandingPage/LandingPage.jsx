@@ -99,9 +99,72 @@ const FOOTER_LINKS = [
 ];
 
 const SOCIALS = [
-  { id: "ln", label: "in", url: "https://linkedin.com" },
-  { id: "yt", label: "+", url: "https://youtube.com" },
-  { id: "tw", label: "x", url: "https://twitter.com" }
+  {
+    id: "youtube",
+    label: "YouTube",
+    url: "https://youtube.com",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path
+          d="M22 8.2c-.2-1.5-1.2-2.5-2.7-2.7C17.1 5 12 5 12 5s-5.1 0-7.3.5C3.2 5.7 2.2 6.7 2 8.2 1.5 10.4 1.5 12 1.5 12s0 1.6.5 3.8c.2 1.5 1.2 2.5 2.7 2.7C6.9 19 12 19 12 19s5.1 0 7.3-.5c1.5-.2 2.5-1.2 2.7-2.7.5-2.2.5-3.8.5-3.8s0-1.6-.5-3.8Z"
+          fill="currentColor"
+        />
+        <path d="M10 15.1V8.9l5 3.1-5 3.1Z" fill="#fff" />
+      </svg>
+    )
+  },
+  {
+    id: "tiktok",
+    label: "TikTok",
+    url: "https://tiktok.com",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path
+          d="M9.5 7.4v10.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3 1-2.3 2.3-2.3c.4 0 .8.1 1.1.2V11c-3.1-.2-5.7 2.4-5.7 5.7S4.2 22.4 7.5 22.4s5.7-2.6 5.7-5.7V4.5h3.3c.5 2.4 2.4 4.3 4.8 4.8v3.3c-1.8-.1-3.6-.7-5.1-1.7v6.4c0 3.3-2.6 5.9-5.9 5.9s-5.9-2.6-5.9-5.9"
+          fill="#fff"
+        />
+        <path
+          d="M21.3 9.3c-2.4-.5-4.3-2.4-4.8-4.8h-3.3v10.1c0 3.3-2.6 5.9-5.9 5.9-1.3 0-2.6-.4-3.6-1.2a5.87 5.87 0 0 0 5.2 3.1c3.3 0 5.9-2.6 5.9-5.9v-6.4c1.5 1 3.3 1.6 5.1 1.7V9.3Z"
+          fill="#25f4ee"
+        />
+        <path
+          d="M9.5 17.6c0 1.3-1 2.3-2.3 2.3-.9 0-1.8-.5-2.1-1.3.4 1.4 1.7 2.3 3.2 2.3 1.3 0 2.3-1 2.3-2.3V4.5h-1.1v13.1Z"
+          fill="#fe2c55"
+        />
+      </svg>
+    )
+  },
+  {
+    id: "telegram",
+    label: "Telegram",
+    url: "https://t.me",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path
+          d="M21.8 4.3 2.8 11.4c-.9.3-.9 1.6 0 1.9l4.9 1.7 2 6c.2.7 1.1.9 1.6.4l2.8-2.7 4.8 3.5c.6.4 1.4.1 1.6-.6l3.6-16c.2-.9-.7-1.6-1.3-1.3Z"
+          fill="currentColor"
+        />
+        <path
+          d="m9.3 15.1-.3 4.5 1.7-1.6 6.5-6.3-5.1 4.1-2.8-.7Z"
+          fill="#fff"
+          opacity=".85"
+        />
+      </svg>
+    )
+  },
+  {
+    id: "x",
+    label: "X",
+    url: "https://twitter.com",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path
+          d="M17.5 2h3.2l-7 8.1 8.2 11.9h-6.4l-4.2-5.9-4.8 5.9H3.3l7.4-8.9L2.9 2h6.6l3.8 5.2L17.5 2Z"
+          fill="currentColor"
+        />
+      </svg>
+    )
+  }
 ];
 
 export default function LandingPage(){
@@ -370,11 +433,12 @@ export default function LandingPage(){
                     key={social.id}
                     href={social.url}
                     className={styles.socialBtn}
-                    aria-label={social.id}
+                    aria-label={social.label}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    {social.label}
+                    <span className={styles.srOnly}>{social.label}</span>
+                    {social.icon}
                   </a>
                 ))}
               </div>
