@@ -8,7 +8,6 @@ import { useGame } from "../../context/GameContext.jsx";
 import { useGameLogic } from "../../hooks/useGameLogic.js";
 import { usePullAnimation } from "../../hooks/usePullAnimation.js";
 import { t } from "../../utils/i18n.js";
-import bgmTrack from "../../assets/audio/background-music.mpeg";
 import competitionVideo from "../../assets/videos/competition.mp4";
 import blueWinVideo from "../../assets/videos/blue-win.mp4";
 import redWinVideo from "../../assets/videos/red-win.mp4";
@@ -88,7 +87,7 @@ export default function Game(){
 
   return (
     <div className={styles.page}>
-      <audio ref={bgmRef} src={bgmTrack} preload="auto" hidden />
+      <audio ref={bgmRef} src="/audio/background-music.mpeg" preload="auto" hidden />
       <header className={styles.topbar}>
         <button className={styles.homeBtn} onClick={backHome} aria-label={t(lang, "backHome")}>
           <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
