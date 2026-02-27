@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Game.module.css";
 import TeamPanel from "./TeamPanel.jsx";
@@ -12,6 +12,10 @@ import competitionVideo from "../../assets/videos/competition.mp4";
 import blueWinVideo from "../../assets/videos/blue-win.mp4";
 import redWinVideo from "../../assets/videos/red-win.mp4";
 
+const MIN_ZOOM = 0.6;
+const MAX_ZOOM = 1;
+const ZOOM_STEP = 0.1;
+
 export default function Game(){
   const navigate = useNavigate();
   const { state } = useGame();
@@ -22,6 +26,22 @@ export default function Game(){
   const game = useGameLogic();
   const bgmRef = useRef(null);
   const audioUnlockedRef = useRef(false);
+  const [zoom, setZoom] = useState(1);
+
+  const clampZoom = (value) => {
+    const rounded = Math.round(value * 100) / 100;
+    return Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, rounded));
+  };
+
+  const adjustZoom = (delta) => {
+    setZoom(prev => clampZoom(prev + delta));
+  };
+
+  const resetZoom = () => setZoom(1);
+
+  const zoomPercent = Math.round(zoom * 100);
+  const canZoomOut = zoom > MIN_ZOOM + 0.001;
+  const canZoomIn = zoom < MAX_ZOOM - 0.001;
 
   const arenaVideoSrc = useMemo(() => {
     if(state.gameStatus === "gameOver"){
@@ -112,55 +132,93 @@ export default function Game(){
         <h1 className={styles.title}>{t(lang, "titleGame")}</h1>
       </header>
 
-      <main className={styles.layout}>
-        <div className={`${styles.panelCol} ${styles.panelColBlue}`}>
-          <TeamPanel
-            team="blue"
-            title={teamBlueName}
-            score={state.teams.blue.score}
-            problem={state.teams.blue.currentProblem}
-            input={state.teams.blue.currentInput}
-            disabled={state.gameStatus !== "playing"}
-            locked={state.teams.blue.isLocked}
-            choiceHint={t(lang, "subjectChoiceHint")}
-            onDigit={(d) => game.pushDigit("blue", d)}
-            onClear={() => game.clearInput("blue")}
-            onSubmit={() => game.submit("blue")}
-            onOptionSelect={(choice) => game.submit("blue", choice)}
-          />
+      <div className={styles.playfield}>
+        <div className={styles.zoomStage}>
+          <div className={styles.zoomInner} style={{ transform: `scale(${zoom})` }}>
+            <main className={styles.layout}>
+              <div className={`${styles.panelCol} ${styles.panelColBlue}`}>
+                <TeamPanel
+                  team="blue"
+                  title={teamBlueName}
+                  score={state.teams.blue.score}
+                  problem={state.teams.blue.currentProblem}
+                  input={state.teams.blue.currentInput}
+                  disabled={state.gameStatus !== "playing"}
+                  locked={state.teams.blue.isLocked}
+                  choiceHint={t(lang, "subjectChoiceHint")}
+                  onDigit={(d) => game.pushDigit("blue", d)}
+                  onClear={() => game.clearInput("blue")}
+                  onSubmit={() => game.submit("blue")}
+                  onOptionSelect={(choice) => game.submit("blue", choice)}
+                />
+              </div>
+
+              <div className={styles.arenaCol}>
+                <Arena
+                  arenaRef={game.arenaRef}
+                  trackRef={game.trackRef}
+                  videoRef={game.videoRef}
+                  videoSrc={arenaVideoSrc}
+                  blueScore={state.teams.blue.score}
+                  redScore={state.teams.red.score}
+                  timerText={game.timerText}
+                  status={state.statusMessage || t(lang, "statusDefault")}
+                  tone={state.statusTone}
+                />
+              </div>
+
+              <div className={`${styles.panelCol} ${styles.panelColRed}`}>
+                <TeamPanel
+                  team="red"
+                  title={teamRedName}
+                  score={state.teams.red.score}
+                  problem={state.teams.red.currentProblem}
+                  input={state.teams.red.currentInput}
+                  disabled={state.gameStatus !== "playing"}
+                  locked={state.teams.red.isLocked}
+                  choiceHint={t(lang, "subjectChoiceHint")}
+                  onDigit={(d) => game.pushDigit("red", d)}
+                  onClear={() => game.clearInput("red")}
+                  onSubmit={() => game.submit("red")}
+                  onOptionSelect={(choice) => game.submit("red", choice)}
+                />
+              </div>
+            </main>
+          </div>
         </div>
 
-        <div className={styles.arenaCol}>
-          <Arena
-            arenaRef={game.arenaRef}
-            trackRef={game.trackRef}
-            videoRef={game.videoRef}
-            videoSrc={arenaVideoSrc}
-            blueScore={state.teams.blue.score}
-            redScore={state.teams.red.score}
-            timerText={game.timerText}
-            status={state.statusMessage || t(lang, "statusDefault")}
-            tone={state.statusTone}
-          />
+        <div className={styles.zoomControls} aria-label="Zoom controls">
+          <span className={styles.zoomLabel}>{zoomPercent}%</span>
+          <div className={styles.zoomButtons}>
+            <button
+              type="button"
+              className={styles.zoomBtn}
+              onClick={() => adjustZoom(-ZOOM_STEP)}
+              disabled={!canZoomOut}
+              aria-label="Zoom out"
+            >
+              −
+            </button>
+            <button
+              type="button"
+              className={styles.zoomBtn}
+              onClick={() => adjustZoom(ZOOM_STEP)}
+              disabled={!canZoomIn}
+              aria-label="Zoom in"
+            >
+              +
+            </button>
+            <button
+              type="button"
+              className={`${styles.zoomBtn} ${styles.zoomReset}`}
+              onClick={resetZoom}
+              aria-label="Reset zoom"
+            >
+              ⤢
+            </button>
+          </div>
         </div>
-
-        <div className={`${styles.panelCol} ${styles.panelColRed}`}>
-          <TeamPanel
-            team="red"
-            title={teamRedName}
-            score={state.teams.red.score}
-            problem={state.teams.red.currentProblem}
-            input={state.teams.red.currentInput}
-            disabled={state.gameStatus !== "playing"}
-            locked={state.teams.red.isLocked}
-            choiceHint={t(lang, "subjectChoiceHint")}
-            onDigit={(d) => game.pushDigit("red", d)}
-            onClear={() => game.clearInput("red")}
-            onSubmit={() => game.submit("red")}
-            onOptionSelect={(choice) => game.submit("red", choice)}
-          />
-        </div>
-      </main>
+      </div>
 
       <WinModal
         open={state.gameStatus === "gameOver"}

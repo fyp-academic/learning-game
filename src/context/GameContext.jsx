@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useReducer } from "react";
-import { ROUND_SECONDS, DEFAULT_MATH_OPS } from "../utils/constants.js";
+import { ROUND_SECONDS, DEFAULT_MATH_OPS, WIN_STEPS } from "../utils/constants.js";
 import { generateProblem } from "../utils/mathProblems.js";
 
 const GameContext = createContext(null);
@@ -53,7 +53,7 @@ function initState(){
     },
     gameStatus: "idle", // idle | playing | gameOver
     timer: 0,
-    pullPosition: 0, // -6..+6
+    pullPosition: 0, // -WIN_STEPS..+WIN_STEPS
     statusMessage: "",
     winner: null, // BLUE | RED | DRAW
     teams: {
@@ -178,7 +178,7 @@ function reducer(state, action){
     }
     case "PULL_STEP": {
       const { delta } = action.payload; // -1 blue, +1 red
-      const next = Math.max(-6, Math.min(6, state.pullPosition + delta));
+      const next = Math.max(-WIN_STEPS, Math.min(WIN_STEPS, state.pullPosition + delta));
       return { ...state, pullPosition: next };
     }
     case "SET_TEAM_NAMES": {

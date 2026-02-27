@@ -4,6 +4,36 @@
   display:flex;
   flex-direction:column;
 }
+.playfield{flex:1; display:flex; flex-direction:column; gap:18px; padding:0 12px 24px;}
+.zoomStage{flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden;}
+.zoomInner{transform-origin:top center; transition:transform .25s ease; width:100%;}
+.zoomControls{
+  align-self:center;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:var(--card);
+  padding:8px 14px;
+  border-radius:999px;
+  box-shadow:var(--shadow);
+}
+.zoomLabel{font-weight:800; color:#1f3a60; min-width:52px; text-align:center;}
+.zoomButtons{display:flex; gap:6px; align-items:center;}
+.zoomBtn{
+  border:0;
+  width:36px;
+  height:36px;
+  border-radius:12px;
+  background:var(--surface-muted, #e5ecf8);
+  font-size:18px;
+  font-weight:900;
+  color:#1c2d43;
+  cursor:pointer;
+  box-shadow:0 8px 18px rgba(12,27,47,.12);
+}
+.zoomBtn:disabled{opacity:.4; cursor:not-allowed; box-shadow:none;}
+.zoomReset{font-size:16px;}
+
 .topbar{
   display:grid;
   grid-template-columns: 160px 1fr;
@@ -74,4 +104,6 @@
     padding:12px;
     gap:14px;
   }
+  .zoomStage{padding-top:8px;}
+  .zoomControls{width:100%; justify-content:center;}
 }
