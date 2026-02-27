@@ -110,54 +110,56 @@ export default function Game(){
         </button>
 
         <h1 className={styles.title}>{t(lang, "titleGame")}</h1>
-
-        <div className={styles.langPill} title={t(lang, "language")}>
-          🌐 {lang.toUpperCase()} • {state.difficulty.toUpperCase()}
-        </div>
       </header>
 
       <main className={styles.layout}>
-        <TeamPanel
-          team="blue"
-          title={teamBlueName}
-          score={state.teams.blue.score}
-          problem={state.teams.blue.currentProblem}
-          input={state.teams.blue.currentInput}
-          disabled={state.gameStatus !== "playing"}
-          locked={state.teams.blue.isLocked}
-          choiceHint={t(lang, "subjectChoiceHint")}
-          onDigit={(d) => game.pushDigit("blue", d)}
-          onClear={() => game.clearInput("blue")}
-          onSubmit={() => game.submit("blue")}
-          onOptionSelect={(choice) => game.submit("blue", choice)}
-        />
+        <div className={`${styles.panelCol} ${styles.panelColBlue}`}>
+          <TeamPanel
+            team="blue"
+            title={teamBlueName}
+            score={state.teams.blue.score}
+            problem={state.teams.blue.currentProblem}
+            input={state.teams.blue.currentInput}
+            disabled={state.gameStatus !== "playing"}
+            locked={state.teams.blue.isLocked}
+            choiceHint={t(lang, "subjectChoiceHint")}
+            onDigit={(d) => game.pushDigit("blue", d)}
+            onClear={() => game.clearInput("blue")}
+            onSubmit={() => game.submit("blue")}
+            onOptionSelect={(choice) => game.submit("blue", choice)}
+          />
+        </div>
 
-        <Arena
-          arenaRef={game.arenaRef}
-          trackRef={game.trackRef}
-          videoRef={game.videoRef}
-          videoSrc={arenaVideoSrc}
-          blueScore={state.teams.blue.score}
-          redScore={state.teams.red.score}
-          timerText={game.timerText}
-          status={state.statusMessage || t(lang, "statusDefault")}
-          tone={state.statusTone}
-        />
+        <div className={styles.arenaCol}>
+          <Arena
+            arenaRef={game.arenaRef}
+            trackRef={game.trackRef}
+            videoRef={game.videoRef}
+            videoSrc={arenaVideoSrc}
+            blueScore={state.teams.blue.score}
+            redScore={state.teams.red.score}
+            timerText={game.timerText}
+            status={state.statusMessage || t(lang, "statusDefault")}
+            tone={state.statusTone}
+          />
+        </div>
 
-        <TeamPanel
-          team="red"
-          title={teamRedName}
-          score={state.teams.red.score}
-          problem={state.teams.red.currentProblem}
-          input={state.teams.red.currentInput}
-          disabled={state.gameStatus !== "playing"}
-          locked={state.teams.red.isLocked}
-          choiceHint={t(lang, "subjectChoiceHint")}
-          onDigit={(d) => game.pushDigit("red", d)}
-          onClear={() => game.clearInput("red")}
-          onSubmit={() => game.submit("red")}
-          onOptionSelect={(choice) => game.submit("red", choice)}
-        />
+        <div className={`${styles.panelCol} ${styles.panelColRed}`}>
+          <TeamPanel
+            team="red"
+            title={teamRedName}
+            score={state.teams.red.score}
+            problem={state.teams.red.currentProblem}
+            input={state.teams.red.currentInput}
+            disabled={state.gameStatus !== "playing"}
+            locked={state.teams.red.isLocked}
+            choiceHint={t(lang, "subjectChoiceHint")}
+            onDigit={(d) => game.pushDigit("red", d)}
+            onClear={() => game.clearInput("red")}
+            onSubmit={() => game.submit("red")}
+            onOptionSelect={(choice) => game.submit("red", choice)}
+          />
+        </div>
       </main>
 
       <WinModal

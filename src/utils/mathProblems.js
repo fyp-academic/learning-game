@@ -12,7 +12,7 @@ function generateScienceProblem(subject, difficulty){
   return getScienceQuestion(subject, difficulty);
 }
 
-export function generateProblem(subject = "math", difficulty){
+export function generateProblem(subject = "math", difficulty, allowedOps){
   if(subject && subject !== "math" && isScienceSubject(subject)){
     const scienceProblem = generateScienceProblem(subject, difficulty);
     if(scienceProblem) return scienceProblem;
@@ -29,7 +29,9 @@ export function generateProblem(subject = "math", difficulty){
 
   const r = ranges[diff] || ranges.medium;
 
-  const op = pick(["+", "-", "×", "÷"]);
+  const baseOps = ["+", "-", "×", "÷"];
+  const ops = Array.isArray(allowedOps) && allowedOps.length ? allowedOps : baseOps;
+  const op = pick(ops.filter(Boolean));
 
   let a = 0, b = 0, ans = 0;
 

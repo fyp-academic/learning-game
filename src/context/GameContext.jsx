@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useMemo, useReducer } from "react";
-import { ROUND_SECONDS } from "../utils/constants.js";
+import { ROUND_SECONDS, DEFAULT_MATH_OPS } from "../utils/constants.js";
 import { generateProblem } from "../utils/mathProblems.js";
 
 const GameContext = createContext(null);
@@ -13,24 +13,46 @@ function safeGet(key, fallback){
   try { return localStorage.getItem(key) || fallback; } catch { return fallback; }
 }
 
+function sanitizeMathOps(ops){
+  if(Array.isArray(ops)){
+    const filtered = ops.filter(op => DEFAULT_MATH_OPS.includes(op));
+    if(filtered.length) return filtered;
+  }
+  return DEFAULT_MATH_OPS;
+}
+
+function safeGetMathOps(){
+  try {
+    const raw = localStorage.getItem("tug_math_ops");
+    if(!raw) return DEFAULT_MATH_OPS;
+    const parsed = JSON.parse(raw);
+    return sanitizeMathOps(parsed);
+  } catch {
+    return DEFAULT_MATH_OPS;
+  }
+}
+
 function initState(){
   const language = safeGet("tug_lang", "en");
   const subject = normalizeSubject(safeGet("tug_subject", "math"));
   const difficulty = safeGet("tug_diff", "medium");
   const teamBlue = safeGet("tug_team_blue", "Team Blue");
   const teamRed = safeGet("tug_team_red", "Team Red");
+  const mathOps = safeGetMathOps();
+  const opsForSubject = subject === "math" ? mathOps : undefined;
 
   return {
     language,
     subject,
     difficulty,
+    mathOps,
     statusTone: "neutral",
     teamNames: {
       blue: teamBlue,
       red: teamRed
     },
     gameStatus: "idle", // idle | playing | gameOver
-    timer: ROUND_SECONDS,
+    timer: 0,
     pullPosition: 0, // -6..+6
     statusMessage: "",
     winner: null, // BLUE | RED | DRAW
@@ -38,13 +60,13 @@ function initState(){
       blue: {
         score: 0,
         currentInput: "0",
-        currentProblem: generateProblem(subject, difficulty),
+        currentProblem: generateProblem(subject, difficulty, opsForSubject),
         isLocked: false
       },
       red: {
         score: 0,
         currentInput: "0",
-        currentProblem: generateProblem(subject, difficulty),
+        currentProblem: generateProblem(subject, difficulty, opsForSubject),
         isLocked: false
       }
     }
@@ -56,6 +78,7 @@ function reducer(state, action){
     case "SET_SETTINGS": {
       const { language, subject, difficulty } = action.payload;
       const nextSubject = normalizeSubject(subject ?? state.subject);
+      const opsForSubject = nextSubject === "math" ? state.mathOps : undefined;
       return {
         ...state,
         language,
@@ -64,11 +87,11 @@ function reducer(state, action){
         teams: {
           blue: {
             ...state.teams.blue,
-            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty)
+            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty, opsForSubject)
           },
           red: {
             ...state.teams.red,
-            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty)
+            currentProblem: generateProblem(nextSubject, difficulty ?? state.difficulty, opsForSubject)
           }
         }
       };
@@ -76,10 +99,11 @@ function reducer(state, action){
     case "START_GAME": {
       const diff = state.difficulty;
       const subj = state.subject;
+      const opsForSubject = subj === "math" ? state.mathOps : undefined;
       return {
         ...state,
         gameStatus: "playing",
-        timer: ROUND_SECONDS,
+        timer: 0,
         pullPosition: 0,
         statusMessage: "",
         winner: null,
@@ -87,13 +111,13 @@ function reducer(state, action){
           blue: {
             score: 0,
             currentInput: "0",
-            currentProblem: generateProblem(subj, diff),
+            currentProblem: generateProblem(subj, diff, opsForSubject),
             isLocked: false
           },
           red: {
             score: 0,
             currentInput: "0",
-            currentProblem: generateProblem(subj, diff),
+            currentProblem: generateProblem(subj, diff, opsForSubject),
             isLocked: false
           }
         }
@@ -101,6 +125,8 @@ function reducer(state, action){
     }
     case "SET_TIMER":
       return { ...state, timer: action.payload };
+    case "TICK_TIMER":
+      return { ...state, timer: state.timer + 1 };
     case "SET_STATUS":
       return { ...state, statusMessage: action.payload.message, statusTone: action.payload.tone ?? "neutral" };
     case "SET_WINNER":
@@ -137,13 +163,14 @@ function reducer(state, action){
     }
     case "TEAM_NEW_PROBLEM": {
       const { team } = action.payload;
+      const opsForSubject = state.subject === "math" ? state.mathOps : undefined;
       return {
         ...state,
         teams: {
           ...state.teams,
           [team]: {
             ...state.teams[team],
-            currentProblem: generateProblem(state.subject, state.difficulty),
+            currentProblem: generateProblem(state.subject, state.difficulty, opsForSubject),
             currentInput: "0"
           }
         }
@@ -162,6 +189,13 @@ function reducer(state, action){
           blue,
           red
         }
+      };
+    }
+    case "SET_MATH_OPS": {
+      const ops = sanitizeMathOps(action.payload?.ops);
+      return {
+        ...state,
+        mathOps: ops
       };
     }
     default:

@@ -7,7 +7,6 @@ import {
 } from "../utils/constants.js";
 import { t } from "../utils/i18n.js";
 import { useSfx } from "./useSfx.js";
-import { useTimer } from "./useTimer.js";
 
 function fmtTime(sec){
   const m = String(Math.floor(sec / 60)).padStart(2, "0");
@@ -83,43 +82,20 @@ export function useGameLogic(){
     try{ videoRef.current?.pause?.(); }catch{}
   }, [clearPending, dispatch, play]);
 
-  // Timer logic
-  useTimer({
-    enabled: state.gameStatus === "playing",
-    seconds: state.timer,
-    onTick: (updater) => dispatch({ type: "SET_TIMER", payload: typeof updater === "function" ? updater(state.timer) : updater }),
-    onExpire: () => {
-      // winner based on pull position
-      if(state.pullPosition < 0) endGame("BLUE");
-      else if(state.pullPosition > 0) endGame("RED");
-      else endGame("DRAW");
-    }
-  });
-
-  // Because we used onTick with direct state.timer above, keep a separate interval update pattern:
-  // We'll override with a dedicated effect for correctness.
   useEffect(() => {
     if(state.gameStatus !== "playing") return;
 
     let alive = true;
     const id = setInterval(() => {
       if(!alive) return;
-      dispatch({ type: "SET_TIMER", payload: Math.max(0, state.timer - 1) });
+      dispatch({ type: "TICK_TIMER" });
     }, 1000);
 
     return () => {
       alive = false;
       clearInterval(id);
     };
-  }, [dispatch, state.gameStatus, state.timer]);
-
-  useEffect(() => {
-    if(state.gameStatus === "playing" && state.timer === 0){
-      if(state.pullPosition < 0) endGame("BLUE");
-      else if(state.pullPosition > 0) endGame("RED");
-      else endGame("DRAW");
-    }
-  }, [state.gameStatus, state.timer, state.pullPosition, endGame]);
+  }, [dispatch, state.gameStatus]);
 
   // Unlock audio on first user gesture
   useEffect(() => {

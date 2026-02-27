@@ -50,10 +50,41 @@ const DIFFS = [
   { id: "hard", key: "hard" }
 ];
 
+const MATH_OPERATIONS = [
+  { id: "+", key: "mathOpAdd" },
+  { id: "-", key: "mathOpSubtract" },
+  { id: "×", key: "mathOpMultiply" },
+  { id: "÷", key: "mathOpDivide" }
+];
+
 const HERO_TAGS = [
-  { key: "heroChipLiveFeedback" },
-  { key: "heroChipClassroom" },
-  { key: "heroChipMobile" }
+  {
+    key: "heroChipLiveFeedback",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path d="m4 13 4-4 4 4 4-4 4 4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M4 17h16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      </svg>
+    )
+  },
+  {
+    key: "heroChipClassroom",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <path d="M5 7h14m-10 0v10m6-10v10" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M3 17h18v2H3z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    )
+  },
+  {
+    key: "heroChipMobile",
+    icon: (
+      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+        <rect x="7" y="3" width="10" height="18" rx="2" ry="2" fill="none" stroke="currentColor" strokeWidth="1.8" />
+        <circle cx="12" cy="17" r="1" fill="currentColor" />
+      </svg>
+    )
+  }
 ];
 
 const METRICS = [
@@ -62,110 +93,35 @@ const METRICS = [
   { id: "availability", valueKey: "metricAvailabilityValue", labelKey: "metricAvailabilityLabel" }
 ];
 
-const HIGHLIGHTS = [
-  { id: "adaptive", icon: "⚡", titleKey: "highlightAdaptiveTitle", copyKey: "highlightAdaptiveCopy" },
-  { id: "coach", icon: "🎯", titleKey: "highlightCoachTitle", copyKey: "highlightCoachCopy" },
-  { id: "bilingual", icon: "🌍", titleKey: "highlightBilingualTitle", copyKey: "highlightBilingualCopy" }
+const OBJECTIVES = [
+  { id: "accuracy", icon: "🎯", titleKey: "objectiveAccuracyTitle", descKey: "objectiveAccuracyDesc" },
+  { id: "speed", icon: "⚡", titleKey: "objectiveSpeedTitle", descKey: "objectiveSpeedDesc" },
+  { id: "confidence", icon: "🏅", titleKey: "objectiveConfidenceTitle", descKey: "objectiveConfidenceDesc" },
+  { id: "teamwork", icon: "🤝", titleKey: "objectiveTeamworkTitle", descKey: "objectiveTeamworkDesc" }
 ];
 
-const FOOTER_LINKS = [
-  {
-    titleKey: "footerProduct",
-    items: [
-      { key: "footerLinkLiveArenas" },
-      { key: "footerLinkSkillAnalytics" },
-      { key: "footerLinkCoachDashboard" },
-      { key: "footerLinkOfflineMode" }
-    ]
-  },
-  {
-    titleKey: "footerResources",
-    items: [
-      { key: "footerLinkCurriculumKits" },
-      { key: "footerLinkImplementation" },
-      { key: "footerLinkWebinars" },
-      { key: "footerLinkChangelog" }
-    ]
-  },
-  {
-    titleKey: "footerCompany",
-    items: [
-      { key: "footerLinkAbout" },
-      { key: "footerLinkPartners" },
-      { key: "footerLinkCareers" },
-      { key: "footerLinkSupport" }
-    ]
-  }
+const HOW_STEPS = [
+  { id: 1, icon: "⚙️", titleKey: "howStep1Title", descKey: "howStep1Desc" },
+  { id: 2, icon: "▶️", titleKey: "howStep2Title", descKey: "howStep2Desc" },
+  { id: 3, icon: "🏆", titleKey: "howStep3Title", descKey: "howStep3Desc" }
 ];
 
-const SOCIALS = [
-  {
-    id: "youtube",
-    label: "YouTube",
-    url: "https://youtube.com",
-    icon: (
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-        <path
-          d="M22 8.2c-.2-1.5-1.2-2.5-2.7-2.7C17.1 5 12 5 12 5s-5.1 0-7.3.5C3.2 5.7 2.2 6.7 2 8.2 1.5 10.4 1.5 12 1.5 12s0 1.6.5 3.8c.2 1.5 1.2 2.5 2.7 2.7C6.9 19 12 19 12 19s5.1 0 7.3-.5c1.5-.2 2.5-1.2 2.7-2.7.5-2.2.5-3.8.5-3.8s0-1.6-.5-3.8Z"
-          fill="currentColor"
-        />
-        <path d="M10 15.1V8.9l5 3.1-5 3.1Z" fill="#fff" />
-      </svg>
-    )
-  },
-  {
-    id: "tiktok",
-    label: "TikTok",
-    url: "https://tiktok.com",
-    icon: (
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-        <path
-          d="M9.5 7.4v10.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3 1-2.3 2.3-2.3c.4 0 .8.1 1.1.2V11c-3.1-.2-5.7 2.4-5.7 5.7S4.2 22.4 7.5 22.4s5.7-2.6 5.7-5.7V4.5h3.3c.5 2.4 2.4 4.3 4.8 4.8v3.3c-1.8-.1-3.6-.7-5.1-1.7v6.4c0 3.3-2.6 5.9-5.9 5.9s-5.9-2.6-5.9-5.9"
-          fill="#fff"
-        />
-        <path
-          d="M21.3 9.3c-2.4-.5-4.3-2.4-4.8-4.8h-3.3v10.1c0 3.3-2.6 5.9-5.9 5.9-1.3 0-2.6-.4-3.6-1.2a5.87 5.87 0 0 0 5.2 3.1c3.3 0 5.9-2.6 5.9-5.9v-6.4c1.5 1 3.3 1.6 5.1 1.7V9.3Z"
-          fill="#25f4ee"
-        />
-        <path
-          d="M9.5 17.6c0 1.3-1 2.3-2.3 2.3-.9 0-1.8-.5-2.1-1.3.4 1.4 1.7 2.3 3.2 2.3 1.3 0 2.3-1 2.3-2.3V4.5h-1.1v13.1Z"
-          fill="#fe2c55"
-        />
-      </svg>
-    )
-  },
-  {
-    id: "telegram",
-    label: "Telegram",
-    url: "https://t.me",
-    icon: (
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-        <path
-          d="M21.8 4.3 2.8 11.4c-.9.3-.9 1.6 0 1.9l4.9 1.7 2 6c.2.7 1.1.9 1.6.4l2.8-2.7 4.8 3.5c.6.4 1.4.1 1.6-.6l3.6-16c.2-.9-.7-1.6-1.3-1.3Z"
-          fill="currentColor"
-        />
-        <path
-          d="m9.3 15.1-.3 4.5 1.7-1.6 6.5-6.3-5.1 4.1-2.8-.7Z"
-          fill="#fff"
-          opacity=".85"
-        />
-      </svg>
-    )
-  },
-  {
-    id: "x",
-    label: "X",
-    url: "https://twitter.com",
-    icon: (
-      <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
-        <path
-          d="M17.5 2h3.2l-7 8.1 8.2 11.9h-6.4l-4.2-5.9-4.8 5.9H3.3l7.4-8.9L2.9 2h6.6l3.8 5.2L17.5 2Z"
-          fill="currentColor"
-        />
-      </svg>
-    )
-  }
+const KEY_FEATURES = [
+  { id: "adaptive", icon: "🧠", titleKey: "featureAdaptiveTitle", descKey: "featureAdaptiveDesc" },
+  { id: "tracking", icon: "📊", titleKey: "featureTrackingTitle", descKey: "featureTrackingDesc" },
+  { id: "bilingual", icon: "🌐", titleKey: "featureBilingualTitle", descKey: "featureBilingualDesc" }
 ];
+
+function parseDelimitedList(value){
+  if(Array.isArray(value)) return value;
+  if(typeof value === "string"){
+    return value
+      .split("|")
+      .map(entry => entry.trim())
+      .filter(Boolean);
+  }
+  return [];
+}
 
 export default function LandingPage(){
   const navigate = useNavigate();
@@ -174,6 +130,7 @@ export default function LandingPage(){
   const year = new Date().getFullYear();
   const defaultBlueName = state.teamNames?.blue || "Team Blue";
   const defaultRedName = state.teamNames?.red || "Team Red";
+  const defaultMathOps = state.mathOps || MATH_OPERATIONS.map(op => op.id);
   const [theme, setTheme] = useState(() => {
     if(typeof window === "undefined") return "light";
     try {
@@ -187,11 +144,15 @@ export default function LandingPage(){
     blueName: defaultBlueName,
     redName: defaultRedName,
     subject: state.subject,
-    difficulty: state.difficulty
+    difficulty: state.difficulty,
+    mathOps: defaultMathOps
   });
   const [formErrorKey, setFormErrorKey] = useState("");
   const [countdown, setCountdown] = useState(null);
   const titleTarget = t(lang, "welcomeTitle");
+  const footerEmails = parseDelimitedList(t(lang, "footerEmails"));
+  const footerPhones = parseDelimitedList(t(lang, "footerPhones"));
+  const footerDevelopers = parseDelimitedList(t(lang, "footerDevelopedByValue"));
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
@@ -231,7 +192,8 @@ export default function LandingPage(){
       blueName: state.teamNames?.blue || "Team Blue",
       redName: state.teamNames?.red || "Team Red",
       subject: state.subject,
-      difficulty: state.difficulty
+      difficulty: state.difficulty,
+      mathOps: state.mathOps || MATH_OPERATIONS.map(op => op.id)
     });
     setFormErrorKey("");
     setStartModalOpen(true);
@@ -249,11 +211,27 @@ export default function LandingPage(){
   function handleSubjectSelect(id){
     const subjectEntry = SUBJECTS.find(s => s.id === id);
     if(!subjectEntry?.ready) return;
-    setFormValues(prev => ({ ...prev, subject: id }));
+    setFormValues(prev => ({
+      ...prev,
+      subject: id,
+      mathOps: id === "math" ? (prev.mathOps?.length ? prev.mathOps : defaultMathOps) : prev.mathOps
+    }));
   }
 
   function handleDifficultySelect(id){
     setFormValues(prev => ({ ...prev, difficulty: id }));
+  }
+
+  function handleMathOpToggle(opId){
+    setFormValues(prev => {
+      const current = new Set(prev.mathOps || []);
+      if(current.has(opId)){
+        current.delete(opId);
+      }else{
+        current.add(opId);
+      }
+      return { ...prev, mathOps: Array.from(current) };
+    });
   }
 
   function persistTeamNames(blue, red){
@@ -264,7 +242,13 @@ export default function LandingPage(){
     dispatch({ type: "SET_TEAM_NAMES", payload: { blue, red } });
   }
 
-  function applySettings(subject, difficulty){
+  function persistMathOps(ops){
+    const clean = Array.isArray(ops) && ops.length ? ops : defaultMathOps;
+    try{ localStorage.setItem("tug_math_ops", JSON.stringify(clean)); }catch{}
+    dispatch({ type: "SET_MATH_OPS", payload: { ops: clean } });
+  }
+
+  function applySettings(subject, difficulty, mathOps){
     try{
       localStorage.setItem("tug_subject", subject);
       localStorage.setItem("tug_diff", difficulty);
@@ -273,6 +257,9 @@ export default function LandingPage(){
       type: "SET_SETTINGS",
       payload: { language: state.language, subject, difficulty }
     });
+    if(subject === "math" && Array.isArray(mathOps)){
+      persistMathOps(mathOps);
+    }
   }
 
   function handleSetupSubmit(event){
@@ -293,8 +280,18 @@ export default function LandingPage(){
       return;
     }
 
+    if(formValues.subject === "math" && (!formValues.mathOps || formValues.mathOps.length === 0)){
+      setFormErrorKey("errorMathOps");
+      return;
+    }
+
     persistTeamNames(blueName, redName);
-    applySettings(formValues.subject, formValues.difficulty);
+    if(formValues.subject !== "math"){
+      persistMathOps(MATH_OPERATIONS.map(op => op.id));
+    }else{
+      persistMathOps(formValues.mathOps);
+    }
+    applySettings(formValues.subject, formValues.difficulty, formValues.mathOps);
 
     setStartModalOpen(false);
     setFormErrorKey("");
@@ -306,7 +303,12 @@ export default function LandingPage(){
       <header className={styles.topbar}>
         <div className={styles.topbarIntro}>
           <div className={styles.homeBtn} aria-label={t(lang, "home")}>
-            <span aria-hidden="true">🏠</span><b>{t(lang, "home")}</b>
+            <span className={styles.homeIcon} aria-hidden="true">
+              <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                <path d="M3 10.5 12 4l9 6.5V20a1 1 0 0 1-1 1h-5.5v-5.1a1.5 1.5 0 0 0-1.5-1.5h-3a1.5 1.5 0 0 0-1.5 1.5V21H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
+            <span className={styles.homeLabel}>{t(lang, "home")}</span>
           </div>
 
           <h1 className={styles.title}>{titleTarget}</h1>
@@ -344,11 +346,6 @@ export default function LandingPage(){
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroLeft}>
-            <div className={styles.heroBadge}>
-              <span>{t(lang, "heroBadgePrimary")}</span>
-              <span className={styles.badgeDot} aria-hidden="true" />
-              <span>{t(lang, "heroBadgeSecondary")}</span>
-            </div>
             <div className={styles.kicker}>{t(lang, "chooseMode")}</div>
             <div className={styles.heroTitle}>{t(lang, "readyCompetition")}</div>
             <div className={styles.heroSub}>{t(lang, "modeDesc")}</div>
@@ -356,7 +353,10 @@ export default function LandingPage(){
             <div className={styles.heroChips}>
               {HERO_TAGS.map(tag => (
                 <span key={tag.key} className={styles.heroChip}>
-                  {t(lang, tag.key)}
+                  <span className={styles.heroChipIcon} aria-hidden="true">
+                    {tag.icon}
+                  </span>
+                  <span>{t(lang, tag.key)}</span>
                 </span>
               ))}
             </div>
@@ -369,90 +369,185 @@ export default function LandingPage(){
               <div className={styles.note}>{t(lang, "setupNote")}</div>
             </div>
           </div>
+
+          <div className={styles.heroRight}>
+            <div className={styles.previewCard}>
+              <div className={styles.previewBadgeRow}>
+                <span className={`${styles.teamBadge} ${styles.teamBadgeBlue}`}>Team Blue</span>
+                <span className={`${styles.teamBadge} ${styles.teamBadgeRed}`}>Team Red</span>
+              </div>
+
+              <div className={styles.previewMeter}>
+                <div className={styles.meterBar}>
+                  <div className={styles.meterBlue} />
+                  <div className={styles.meterRed} />
+                  <div className={styles.meterKnob}>
+                    <span />
+                  </div>
+                </div>
+                <div className={styles.meterAxis}>
+                  <span />
+                </div>
+              </div>
+
+              <div className={styles.previewScores}>
+                <div className={styles.previewScoreCol}>
+                  <div className={styles.previewScoreValue}>0</div>
+                  <div className={styles.previewScoreLabel}>{t(lang, "correct")}</div>
+                </div>
+                <div className={styles.previewScoreCol}>
+                  <div className={styles.previewScoreValue}>0</div>
+                  <div className={styles.previewScoreLabel}>{t(lang, "correct")}</div>
+                </div>
+              </div>
+
+              <p className={styles.previewNote}>{t(lang, "statusDefault")}</p>
+            </div>
+          </div>
         </section>
 
-        <section className={styles.metricsStrip}>
-          {METRICS.map(metric => (
-            <article key={metric.id} className={styles.metricCard}>
-              <div className={styles.metricValue}>{t(lang, metric.valueKey)}</div>
-              <div className={styles.metricLabel}>{t(lang, metric.labelKey)}</div>
-            </article>
-          ))}
+        <section className={styles.featuresSection}>
+          <div className={styles.featuresHeader}>
+            <h2 className={styles.featuresTitle}>{t(lang, "featuresHeading")}</h2>
+            <p className={styles.featuresSubtitle}>{t(lang, "featuresSubheading")}</p>
+          </div>
+
+          <div className={styles.featuresGrid}>
+            {KEY_FEATURES.map(feature => (
+              <article key={feature.id} className={styles.featureCard}>
+                <div className={styles.featureGlyph} aria-hidden="true">{feature.icon}</div>
+                <div>
+                  <h3>{t(lang, feature.titleKey)}</h3>
+                  <p>{t(lang, feature.descKey)}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </section>
 
-        <section className={styles.featureGrid}>
-          {HIGHLIGHTS.map(feature => (
-            <article key={feature.id} className={styles.featureCard}>
-              <div className={styles.featureIcon} aria-hidden="true">
-                {feature.icon}
-              </div>
-              <div>
-                <h3 className={styles.featureTitle}>{t(lang, feature.titleKey)}</h3>
-                <p className={styles.featureCopy}>{t(lang, feature.copyKey)}</p>
-              </div>
-            </article>
-          ))}
+        <section className={styles.objectivesSection}>
+          <div className={styles.objectivesHeader}>
+            <h2 className={styles.objectivesTitle}>{t(lang, "objectiveHeading")}</h2>
+            <p className={styles.objectivesSubtitle}>{t(lang, "objectiveSubheading")}</p>
+          </div>
+
+          <div className={styles.objectivesGrid}>
+            {OBJECTIVES.map(obj => (
+              <article key={obj.id} className={styles.objectiveCard}>
+                <div className={styles.objectiveIcon} aria-hidden="true">{obj.icon}</div>
+                <h3>{t(lang, obj.titleKey)}</h3>
+                <p>{t(lang, obj.descKey)}</p>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        <section className={styles.howSection}>
+          <div className={styles.howHeader}>
+            <h2 className={styles.howTitle}>{t(lang, "howHeading")}</h2>
+            <p className={styles.howSubtitle}>{t(lang, "howSubheading")}</p>
+          </div>
+
+          <div className={styles.howGrid}>
+            {HOW_STEPS.map(step => (
+              <article key={step.id} className={styles.howCard}>
+                <div className={styles.howIcon} aria-hidden="true">{step.icon}</div>
+                <div className={styles.howNumber}>{String(step.id).padStart(2, "0")}</div>
+                <h3>{t(lang, step.titleKey)}</h3>
+                <p>{t(lang, step.descKey)}</p>
+              </article>
+            ))}
+          </div>
         </section>
 
         <footer className={styles.footer}>
           <div className={styles.footerShell}>
-            <div className={styles.footerBrand}>
-              <div className={styles.footerBadge}>TUG</div>
-              <p className={styles.footerSummary}>
-                {t(lang, "footerSummary")}
-              </p>
-              <div className={styles.footerContact}>
-                <a href="mailto:hamiskalira7@gmail.com">hamiskalira7@gmail.com</a>
-                <span>+255 686 300 235</span>
-              </div>
-            </div>
-
-            <div className={styles.footerLinks}>
-              {FOOTER_LINKS.map(section => (
-                <div key={section.titleKey} className={styles.footerColumn}>
-                  <div className={styles.footerHeading}>{t(lang, section.titleKey)}</div>
-                  <ul className={styles.footerList}>
-                    {section.items.map(item => (
-                      <li key={item.key}>
-                        <a href="#" className={styles.footerLink}>
-                          {t(lang, item.key)}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.footerAside}>
-              <div className={styles.footerTag}>{t(lang, "footerTagline")}</div>
-              <button className={styles.footerCta}>{t(lang, "footerCta")}</button>
-              <div className={styles.footerSocials}>
-                {SOCIALS.map(social => (
-                  <a
-                    key={social.id}
-                    href={social.url}
-                    className={styles.socialBtn}
-                    aria-label={social.label}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <span className={styles.srOnly}>{social.label}</span>
-                    {social.icon}
+            <div className={styles.footerMain}>
+              <div className={styles.footerIntro}>
+                <div>
+                  <h3 className={styles.footerTitle}>{t(lang, "footerTitle")}</h3>
+                  <a className={styles.footerSubtitle} href="#" rel="noreferrer">
+                    {t(lang, "footerSubtitle")}
                   </a>
-                ))}
+
+                  <dl className={styles.footerMeta}>
+                    <div>
+                      <dt>{t(lang, "footerDevelopedByLabel")}</dt>
+                      <dd>
+                        {footerDevelopers.length ? (
+                          <ul className={styles.footerDevList}>
+                            {footerDevelopers.map(name => (
+                              <li key={name}>{name}</li>
+                            ))}
+                          </ul>
+                        ) : (
+                          t(lang, "footerDevelopedByValue")
+                        )}
+                      </dd>
+                    </div>
+                  </dl>
+                </div>
+              </div>
+
+              <div className={styles.footerInfoGrid}>
+                <div className={styles.footerSection}>
+                  <h4>{t(lang, "footerCourseLabel")}</h4>
+                  <span className={styles.footerDetailValue}>{t(lang, "footerCourseValue")}</span>
+                </div>
+
+                <div className={styles.footerSection}>
+                  <h4>{t(lang, "footerInstitutionLabel")}</h4>
+                  <span className={styles.footerDetailValue}>{t(lang, "footerInstitutionValue")}</span>
+                </div>
+
+                <div className={styles.footerSection}>
+                  <h4>{t(lang, "footerContactTitle")}</h4>
+                  <div className={styles.footerContactList}>
+                    {footerEmails.map(email => (
+                      <a key={email} className={styles.footerContactLink} href={`mailto:${email}`}>
+                        <span className={styles.contactIcon} aria-hidden="true">
+                          <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                            <path d="M4 6h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1Zm0 0 8 6 8-6" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                        <span>{email}</span>
+                      </a>
+                    ))}
+                    {footerPhones.map(phone => {
+                      const href = phone.replace(/[^+\d]/g, "");
+                      return (
+                        <a key={phone} className={styles.footerContactLink} href={`tel:${href}`}>
+                          <span className={styles.contactIcon} aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="img" aria-hidden="true">
+                              <path d="M6.6 3h2.7c.4 0 .8.3.9.7l.6 3.1c.1.3 0 .6-.2.9l-1.7 1.7a12.2 12.2 0 0 0 5.4 5.4l1.7-1.7c.2-.2.6-.3.9-.2l3.1.6c.4.1.7.5.7.9v2.7c0 .5-.4.9-.9.9A15.9 15.9 0 0 1 5.7 4c0-.5.4-.9.9-.9Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                            </svg>
+                          </span>
+                          <span>{phone}</span>
+                        </a>
+                      );
+                    })}
+                  </div>
+                </div>
+
+                <div className={styles.footerSection}>
+                  <h4>{t(lang, "footerResourcesTitle")}</h4>
+                  <div className={styles.resourceLinks}>
+                    {["footerResourcePrivacy", "footerResourceTerms", "footerResourceAccessibility"].map(key => (
+                      <a key={key} href="#" className={styles.resourceLink}>
+                        {t(lang, key)}
+                        <svg viewBox="0 0 16 16" role="img" aria-hidden="true">
+                          <path d="M6 3h7v7" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                          <path d="M13 3 3 13" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      </a>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className={styles.footerBottom}>
-            <span>© {year} Tug Learning Arena. {t(lang, "footerRights")}</span>
-            <div className={styles.footerPolicies}>
-              <a href="#">{t(lang, "footerPrivacy")}</a>
-              <span aria-hidden="true">•</span>
-              <a href="#">{t(lang, "footerTerms")}</a>
-              <span aria-hidden="true">•</span>
-              <a href="#">{t(lang, "footerAccessibility")}</a>
+            <div className={styles.footerDivider} />
+            <div className={styles.footerBottom}>
+              <span>© {year} {t(lang, "footerBottomNote")}</span>
             </div>
           </div>
         </footer>
@@ -462,10 +557,7 @@ export default function LandingPage(){
         <div className={styles.modalOverlay} role="dialog" aria-modal="true" aria-label="Setup match">
           <div className={styles.modalCard}>
             <div className={styles.modalHeader}>
-              <div>
-                <p className={styles.modalKicker}>{t(lang, "prepareArena")}</p>
-                <h2 className={styles.modalTitle}>{t(lang, "modalTitle")}</h2>
-              </div>
+              <h2 className={styles.modalTitle}>{t(lang, "prepareArena")}</h2>
               <button className={styles.modalClose} onClick={closeStartModal} aria-label="Close setup">
                 ✕
               </button>
@@ -508,36 +600,34 @@ export default function LandingPage(){
                     disabled={!s.ready}
                     aria-disabled={!s.ready}
                   >
-                    <div className={styles.subjectHead}>
-                      <div>
-                        <div className={styles.subjectTitle}>{t(lang, s.key)}</div>
-                        {s.descKey ? <p className={styles.subjectDesc}>{t(lang, s.descKey)}</p> : null}
-                      </div>
-                      {!s.ready ? (
-                        <div className={styles.badgeSoon}>{t(lang, "comingSoon")}</div>
-                      ) : (
-                        <div className={styles.badgeReady}>{t(lang, "ready")}</div>
-                      )}
-                    </div>
-
-                    <div className={styles.subjectMetaRow}>
-                      {s.questionCount ? (
-                        <span className={styles.subjectMeta}>
-                          {s.questionCount} {t(lang, "subjectQuestionSuffix")}
-                        </span>
-                      ) : s.metaKey ? (
-                        <span className={styles.subjectMeta}>{t(lang, s.metaKey)}</span>
-                      ) : null}
-
-                      <div className={styles.subjectTags}>
-                        {(s.tags || []).map(tagKey => (
-                          <span key={tagKey} className={styles.subjectTag}>{t(lang, tagKey)}</span>
-                        ))}
-                      </div>
-                    </div>
+                    <div className={styles.subjectTitle}>{t(lang, s.key)}</div>
                   </button>
                 ))}
               </div>
+
+              {formValues.subject === "math" && (
+                <div className={styles.modalOpsBlock}>
+                  <div className={styles.modalSectionLabel}>{t(lang, "mathOpsLabel")}</div>
+                  <p className={styles.modalOpsHint}>{t(lang, "mathOpsHint")}</p>
+                  <div className={styles.modalOpsGrid} role="group" aria-label={t(lang, "mathOpsLabel")}>
+                    {MATH_OPERATIONS.map(op => {
+                      const active = formValues.mathOps?.includes(op.id);
+                      return (
+                        <button
+                          key={op.id}
+                          type="button"
+                          className={`${styles.opChip} ${active ? styles.opChipActive : ""}`}
+                          onClick={() => handleMathOpToggle(op.id)}
+                          aria-pressed={active}
+                        >
+                          <span className={styles.opSymbol}>{op.id}</span>
+                          <span>{t(lang, op.key)}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
 
               <div className={styles.modalSectionLabel}>{t(lang, "difficulty")}</div>
               <div className={styles.modalSegmented} role="group" aria-label={t(lang, "difficulty")}>
